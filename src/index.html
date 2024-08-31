@@ -5,30 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
     <link rel="stylesheet" href="./sass/index.scss" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.17.0/simple-lightbox.min.css"
     />
   </head>
   <body>
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit">Search</button>
-    </form>
-
-    <div class="gallery"></div>
-
-    <button type="button" class="load-more">Load more</button>
-
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.17.0/simple-lightbox.min.js"></script> -->
 
     <!-- ❗️❗️❗️ Add partials like so for every page -->
+    <include src="./partials/tema11.html"></include>
     <!-- <include src="./partials/example.html"></include>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <script type="module" src="./index.js"></script>

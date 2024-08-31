@@ -19,15 +19,15 @@ const createImageCard = (image) => {
     const card = document.createElement('div');
     card.classList.add('photo-card');
     card.innerHTML = `
-        <a href="${image.largeImageURL}">  
-            <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy">
+        <a href="${image.largeImageURL}">
+            <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
         </a>
         <div class="info">
             <p class="info-item"><b>Likes:</b> ${image.likes}</p>
             <p class="info-item"><b>Views:</b> ${image.views}</p>
             <p class="info-item"><b>Comments:</b> ${image.comments}</p>
             <p class="info-item"><b>Downloads:</b> ${image.downloads}</p>
-         </div>
+        </div>     
     `;
     gallery.appendChild(card);
 };
@@ -36,16 +36,16 @@ const fetchImages = async (query) => {
     try {
         const response = await axios.get(`https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${currentPage}`);  
 
-        console.log(response);
-  
+        console.log(response); 
 
         const { hits, totalHits: newTotalHits } = response.data;
+        Notiflix.Notify.success(`Hooray! We found ${newTotalHits} images`);
 
         if (hits.length === 0) {
-            Notiflix.Notify.failure('Nu s-au găsit imagini.');
+            Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again');
             return;
         }
-
+        // Notiflix.Notify.success(`Hooray! We found ${total} images`);
         totalHits = newTotalHits;
         hits.forEach(image => createImageCard(image));
 
@@ -53,14 +53,14 @@ const fetchImages = async (query) => {
 
         if (currentPage * 40 >= totalHits) {
             loadMoreBtn.style.display = 'none';
-            Notiflix.Notify.info('Ai ajuns la sfârșitul rezultatelor.');
+            Notiflix.Notify.info('We are sorry, but you have reached the end of search results.');
         } else {
             currentPage++;
             loadMoreBtn.style.display = 'block';
         }
     } catch (error) {
         console.error(error);
-        Notiflix.Notify.failure('A apărut o eroare. Te rugăm să încerci mai târziu.');
+        Notiflix.Notify.failure('It is an error. Please try again');
     }
 };
 
