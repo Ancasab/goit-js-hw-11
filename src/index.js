@@ -20,7 +20,7 @@ const createImageCard = (image) => {
     card.classList.add('photo-card');
     card.innerHTML = `
         <a href="${image.largeImageURL}">
-            <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+            <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" width = 320 height = 170/>
         </a>
         <div class="info">
             <p class="info-item"><b>Likes:</b> ${image.likes}</p>
@@ -35,17 +35,18 @@ const createImageCard = (image) => {
 const fetchImages = async (query) => {
     try {
         const response = await axios.get(`https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${currentPage}`);  
+        // console.log(response); 
 
-        console.log(response); 
-
-        const { hits, totalHits: newTotalHits } = response.data;
-        Notiflix.Notify.success(`Hooray! We found ${newTotalHits} images`);
+        const { hits, total, totalHits: newTotalHits } = response.data;
+        
 
         if (hits.length === 0) {
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again');
             return;
         }
-        // Notiflix.Notify.success(`Hooray! We found ${total} images`);
+        if (currentPage === 1) {
+            Notiflix.Notify.success(`Hooray! We found ${total} images`);
+        }
         totalHits = newTotalHits;
         hits.forEach(image => createImageCard(image));
 
