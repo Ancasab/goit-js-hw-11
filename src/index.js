@@ -50,7 +50,7 @@ const fetchImages = async (query) => {
         totalHits = newTotalHits;
         hits.forEach(image => createImageCard(image));
 
-        new SimpleLightbox('.gallery a');
+        new simpleLightbox('.gallery a');
 
         if (currentPage * 40 >= totalHits) {
             loadMoreBtn.style.display = 'none';
